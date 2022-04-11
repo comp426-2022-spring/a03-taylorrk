@@ -1,18 +1,18 @@
 // Require Express.js
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
-var port = 5000;
+const args = require('minimist')(process.argv.slice(2));
+args["port"];
+const port = args.port || process.env.PORT || 5000;
 
 // Start an app server
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%',port))
 });
 
-// Default response for any other request
-app.use(function(req, res){
-    res.status(404).send('404 NOT FOUND')
-});
+
+
 
 app.get('/app/', (req, res) => {
     // Respond with status 200
@@ -69,10 +69,10 @@ return finalFlips;
 function flipACoin(call) {
     var flip = coinFlip();
     if (call == flip) {
-        return "win";
+        return {"call": call, "flip": flip, "result": 'win'};
     }
     else {
-        return "lose";
+        return {"call": call, "flip": flip, "result": 'lose'};
         }
 }
 
@@ -85,7 +85,7 @@ app.get('/app/flip/', (req, res) => {
   
 app.get('/app/flips/:number', (req, res) => {
     const flips = coinFlips(req.params.number)
-    res.status(200).json({"raw" : flips, "summary" : countFlips(flips)})
+    res.status(200).json(flips)
 });
   
 app.get('/app/flip/call/tails', (req, res) => {
@@ -96,4 +96,8 @@ app.get('/app/flip/call/heads', (req, res) => {
     res.status(200).json(flipACoin(req.params.call))
 });
 
+// Default response for any other request
+app.use(function(req, res){
+    res.status(404).send('404 NOT FOUND')
+});
   
