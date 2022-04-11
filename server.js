@@ -1,5 +1,5 @@
 // Require Express.js
-import express from 'express';
+const express = require('express')
 const app = express()
 
 var port = 5000;
