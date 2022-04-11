@@ -89,12 +89,11 @@ app.get('/app/flips/:number', (req, res) => {
 });
   
 app.get('/app/flip/call/tails', (req, res) => {
-    res.statusCode = 200
-    res.json(flipACoin(req.params.call))
+    res.status(200).json(flipACoin(req.params.call))
 });
   
 app.get('/app/flip/call/heads', (req, res) => {
-    res.statusCode = 200
-    res.json(flipACoin(req.params.call))
+    res.status(200).json(flipACoin(req.params.call))
 });
+
   
