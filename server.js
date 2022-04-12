@@ -1,23 +1,19 @@
 // Require Express.js
-const express = require('express');
-const app = express();
+const require = createRequire(import.meta.url);
+const express = require('express')
+const app = express()
 
-const args = require('minimist')(process.argv.slice(2));
-args["port"];
-const port = args.port || process.env.PORT || 5000;
+const args = require('minimist')(process.argv.slice(2))
+args["port"]
+const port = args.port || 5000
 
 // Start an app server
 const server = app.listen(port, () => {
     console.log('App listening on port %PORT%'.replace('%PORT%',port))
 });
 
-
-
-
 app.get('/app/', (req, res) => {
-    // Respond with status 200
         res.statusCode = 200;
-    // Respond with status message "OK"
         res.statusMessage = 'OK';
         res.writeHead( res.statusCode, { 'Content-Type' : 'text/plain' });
         res.end(res.statusCode+ '' +res.statusMessage)
@@ -25,7 +21,6 @@ app.get('/app/', (req, res) => {
 
 
 // coin functions
-
 function coinFlip() {
     var ran = Math.random();
     if (ran < 0.5) {
