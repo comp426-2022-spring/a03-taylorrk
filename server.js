@@ -53,10 +53,7 @@ function countFlips(array) {
             tails++
         }
 }
-const finalFlips = new Object();
-finalFlips.tails = tails;
-finalFlips.heads = heads;
-return finalFlips;
+return {'heads' : heads, 'tails' : tails}
 }
 
 
@@ -80,8 +77,9 @@ app.get('/app/flip/', (req, res) => {
   });
   
 app.get('/app/flips/:number', (req, res) => {
-    const flips = coinFlips(req.params.number)
-    res.status(200).json(flips)
+    let flips = coinFlips(req.params.number)
+    let final = countFlips(flips)
+    res.status(200).json({ 'raw' : flips, 'summary' : final})
 });
   
 app.get('/app/flip/call/tails', (req, res) => {
