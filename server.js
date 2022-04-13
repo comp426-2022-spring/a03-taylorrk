@@ -2,7 +2,7 @@
 const express = require('express')
 const app = express()
 
-const args = require('minimist')(process.argv.slice(2))
+const args = require('minimist')(process.argv.slice(2));
 args["port"]
 const port = args.port || 5555
 
@@ -62,12 +62,14 @@ return finalFlips;
 
 function flipACoin(call) {
     var flip = coinFlip();
+    var result = ""
     if (call == flip) {
-        return {"call": call, "flip": flip, "result": 'win'};
+        result = "win"
     }
     else {
-        return {"call": call, "flip": flip, "result": 'lose'};
+        result = "lose"
         }
+    return {"call": call, "flip": flip, "result": result};
 }
 
 // API calls
@@ -83,11 +85,13 @@ app.get('/app/flips/:number', (req, res) => {
 });
   
 app.get('/app/flip/call/tails', (req, res) => {
-    res.status(200).json(flipACoin(req.params.call))
+    const resultFlip = flipACoin('tails')
+    res.status(200).json({ 'call' : resultFlip.call, 'flip': resultFlip.flip, 'result': resultFlip.result})
 });
   
 app.get('/app/flip/call/heads', (req, res) => {
-    res.status(200).json(flipACoin(req.params.call))
+    const resultFlip = flipACoin('heads')
+    res.status(200).json({ 'call' : resultFlip.call, 'flip': resultFlip.flip, 'result': resultFlip.result})
 });
 
 // Default response for any other request
