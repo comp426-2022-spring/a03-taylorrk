@@ -1,11 +1,10 @@
 // Require Express.js
-const require = createRequire(import.meta.url);
 const express = require('express')
 const app = express()
 
 const args = require('minimist')(process.argv.slice(2))
 args["port"]
-const port = args.port || 5000
+const port = args.port || 5555
 
 // Start an app server
 const server = app.listen(port, () => {
